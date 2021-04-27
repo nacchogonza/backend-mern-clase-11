@@ -3,29 +3,20 @@ import { routerApi, productos } from './RouterApi.js';
 
 const app = express();
 
-/* app.engine(
-  "hbs",
-  handlebars({
-    extname: "hbs",
-    defaultLayout: "layout.hbs",
-    layoutsDir: "./views",
-    partialsDir: "./views/partials",
-  })
-); */
-
-app.set("view engine", "ejs");
+app.set("views", "./views")
+app.set("view engine", "pug");
 
 app.use('/api', routerApi);
 
 app.get('/productos/vista', (req, res) => {
   const data = productos.getProductos();
-  res.render("pages/listProducts", {
+  res.render("listProducts.pug", {
     products: data
   });
 })
 
 app.get('/productos/agregar', (req, res) => {
-  res.render("pages/addProduct");
+  res.render("addProduct.pug");
 })
 
 app.use(express.json());
